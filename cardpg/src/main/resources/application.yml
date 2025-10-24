@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: cardpg
+
+server:
+  port: 8081
+  address: 0.0.0.0
+  servlet:
+    contextPath: /rechml/backend-keycloak
+
+keycloak:
+  url: http://keycloak:8080/rechml/keycloak
+  realm: car-dpg
+  client-id: api-service
+  client-secret: YvM5Ymcx5zjcaWAhK4ER2eJw7nI7H50P
+
+backend:
+  base-url: https://inovacao.dataprev.gov.br/cardpgbackend

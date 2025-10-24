@@ -1,0 +1,103 @@
+{
+  "pageTitles": {
+    "adminLogin": "Admin Login",
+    "userLogin": "User Login",
+    "adminSettings": "Admin Settings",
+    "userRegister": "User Registration",
+    "userProfile": "User Profile"
+  },
+  "title": "Settings",
+  "search": {
+    "title": "System Configuration Search",
+    "placeholder": "What are you looking for?",
+    "selectPlaceholder": "Select a search"
+  },
+  "table": {
+    "title": "System Configuration List",
+    "headers": {
+      "field": "Field Name",
+      "value": "Value",
+      "source": "Source",
+      "component": "Application Component"
+    }
+  },
+  "pagination": {
+    "show": "Show",
+    "of": "of",
+    "items": "items",
+    "page": "Page"
+  },
+  "login": {
+    "title": "Admin",
+    "userTitle": "User Portal",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Login",
+    "govLoginButton": "Login with gov.br",
+    "validation": {
+      "required": "This field is required.",
+      "email": "Enter a valid email.",
+      "hasDigit": "Must contain at least one number",
+      "passwordDiff": "Passwords do not match.",
+      "passwordMin": "The password must be at least 8 characters long.",
+      "passwordError": "The password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+    },
+    "noAccount": "Don't have an account?",
+    "registerLink": "Register"
+  },
+  "register": {
+    "title": "User Registration",
+    "email": "Email",
+    "name": "First Name",
+    "lastName": "Last Name",
+    "idNational": "Id National",
+    "password": "Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Register",
+    "hasAccount": "Already have an account?",
+    "loginLink": "Login"
+  },
+  "profile": {
+    "title": "Profile",
+    "personalData": "Personal Information",
+    "accessData": "Access Credentials",
+    "changePassword": "Change Password",
+    "name": "First Name",
+    "id": "ID",
+    "email": "Email",
+    "password": "Password",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "ssoLoginMessage": "Editing information is unavailable. Login performed through GOV.BR SSO."
+  },
+  "messages": {
+    "invalidLogin": "Invalid login.",
+    "loginError": "Error while logging in.",
+    "profileUpdated": "Information updated successfully.",
+    "accessDataUpdated": "Password updated successfully.",
+    "profileUpdateError": "Failed to update profile information.",
+    "accessDataUpdateError": "Failed to update password.",
+    "registerError": "User registration failed.",
+    "invalidEmail": "E-mail inválido ou já cadastrado.",
+    "invalidIdNational": "ID Nacional inválido ou já cadastrado.",
+    "operationNotAllowed": "For security policy reasons, this operation is not allowed.",
+    "sso": {
+      "invalidParams": "Invalid SSO parameters",
+      "errorLogin": "Error completing SSO"
+    }
+  },
+  "homepage": {
+    "title": "Choose the option based on what you want to do.",
+    "registerProperty": "Register property",
+    "properties": "Properties",
+    "profile": "Profile",
+    "learnMore": "Learn more about the project.",
+    "avatar": {
+      "title": "My account",
+      "profile": "Profile",
+      "logout": "Logout"
+    }
+  }
+}

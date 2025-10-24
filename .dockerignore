@@ -1,0 +1,2 @@
+# Ignora node_modules do frontend
+/frontend/node_modules

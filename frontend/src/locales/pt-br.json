@@ -1,0 +1,103 @@
+{
+  "pageTitles": {
+    "adminLogin": "Login Admin",
+    "userLogin": "Login Cadastrante",
+    "adminSettings": "Configurações Admin",
+    "userRegister": "Registro Cadastrante",
+    "userProfile": "Perfil de Usuário"
+  },
+  "title": "Configurações",
+  "search": {
+    "title": "Pesquisas de Configurações do Sistema ",
+    "placeholder": "O que você procura?",
+    "selectPlaceholder": "Selecione a pesquisa"
+  },
+  "table": {
+    "title": "Lista de Configurações do Sistema",
+    "headers": {
+      "field": "Nome do campo",
+      "value": "Valor",
+      "source": "Fonte (Origem)",
+      "component": "Componente da Aplicação"
+    }
+  },
+  "pagination": {
+    "show": "Exibir",
+    "of": "de",
+    "items": "itens",
+    "page": "Página"
+  },
+  "login": {
+    "title": "Admin",
+    "userTitle": "Portal Cadastrante",
+    "email": "E-mail",
+    "password": "Senha",
+    "loginButton": "Entrar",
+    "govLoginButton": "Entrar com gov.br",
+    "validation": {
+      "required": "Este campo é obrigatório.",
+      "email": "Digite um e-mail válido.",
+      "hasDigit": "Deve conter ao menos um número",
+      "passwordDiff": "As senhas digitadas são diferentes.",
+      "passwordMin": "A senha deve ter no mínimo 8 caracteres.",
+      "passwordError": "A Senha precisa conter ao menos uma letra maiúscula, minúscula, um número e um caractere especial."
+    },
+    "noAccount": "Não tem uma conta?",
+    "registerLink": "Cadastre-se"
+  },
+  "register": {
+    "title": "Cadastro de Usuário",
+    "email": "E-mail",
+    "name": "Nome",
+    "lastName": "Sobrenome",
+    "idNational": "Id Nacional",
+    "password": "Senha",
+    "newPassword": "Nova Senha",
+    "confirmPassword": "Confirmar Senha",
+    "submit": "Cadastrar",
+    "hasAccount": "Já tem uma conta?",
+    "loginLink": "Faça Login"
+  },
+  "profile": {
+    "title": "Perfil",
+    "personalData": "Dados Pessoais",
+    "accessData": "Dados de Acesso",
+    "changePassword": "Alterar Senha",
+    "name": "Nome",
+    "id": "ID",
+    "email": "E-mail",
+    "password": "Senha",
+    "edit": "Editar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "ssoLoginMessage": "Edição de informações indisponível. Login realizado através de SSO GOV.BR"
+  },
+  "messages": {
+    "invalidLogin": "Login inválido.",
+    "loginError": "Erro ao fazer Login.",
+    "profileUpdated": "Informações atualizadas.",
+    "accessDataUpdated": "Senha atualizada com sucesso.",
+    "profileUpdateError": "Erro ao atualizar informações.",
+    "accessDataUpdateError": "Erro ao atualizar senha.",
+    "registerError": "Erro ao cadastrar usuário.",
+    "invalidEmail": "E-mail inválido ou já cadastrado.",
+    "invalidIdNational": "Invalid or already registered National ID.",
+    "operationNotAllowed": "Por política de segurança, essa operação não é permitida.",
+    "sso": {
+      "invalidParams": "Parâmetros inválidos de SSO",
+      "errorLogin": "Erro ao finalizar SSO"
+    }
+  },
+  "homepage": {
+    "title": "Escolha a opção com base no que você deseja fazer.",
+    "registerProperty": "Registrar propriedade",
+    "properties": "Propriedades",
+    "profile": "Perfil",
+    "learnMore": "Saiba mais sobre o projeto",
+    "avatar": {
+      "title": "Minha conta",
+      "profile": "Perfil",
+      "logout": "Sair"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# -------------------------------------------------------------
+# Especificar imagem base oficial do Keycloak
+# -------------------------------------------------------------
+    FROM quay.io/keycloak/keycloak:24.0.1
+
+    # -------------------------------------------------------------
+    # Copiar temas personalizados e extensões (providers) para Keycloak
+    # -------------------------------------------------------------
+    COPY themes /opt/keycloak/themes
+    COPY providers /opt/keycloak/providers
+    
+    # -------------------------------------------------------------
+    # Desativar cache de temas e templates para facilitar desenvolvimento
+    # -------------------------------------------------------------
+    ENV KC_SPI_THEME_CACHE_THEMES=false
+    ENV KC_SPI_THEME_CACHE_TEMPLATES=false
+    
+    # -------------------------------------------------------------
+    # Configurar Keycloak com banco de dados PostgreSQL
+    # -------------------------------------------------------------
+    ENV KC_DB=postgres
+    
+    # -------------------------------------------------------------
+    # Habilitar funcionalidades experimentais (ex: scripts, magic link)
+    # -------------------------------------------------------------
+    ENV KC_FEATURES=preview
+    
+    # -------------------------------------------------------------
+    # Construir o Keycloak com extensões personalizadas e suporte a scripts
+    # -------------------------------------------------------------
+    RUN /opt/keycloak/bin/kc.sh build --features=scripts
+    

@@ -1,0 +1,103 @@
+{
+  "pageTitles": {
+    "adminLogin": "Inicio de sesión del administrador",
+    "userLogin": "Inicio de sesión del registrador",
+    "adminSettings": "Configuraciones del administrador",
+    "userRegister": "Registro del registrador",
+    "userProfile": "Perfil del usuario"
+  },
+  "title": "Configuraciones",
+  "search": {
+    "title": "Búsquedas de Configuración del Sistema",
+    "placeholder": "¿Qué estás buscando?",
+    "selectPlaceholder": "Seleccione una búsqueda"
+  },
+  "table": {
+    "title": "Lista de Configuraciones del Sistema",
+    "headers": {
+      "field": "Nombre del campo",
+      "value": "Valor",
+      "source": "Fuente",
+      "component": "Componente de la Aplicación"
+    }
+  },
+  "pagination": {
+    "show": "Mostrar",
+    "of": "de",
+    "items": "elementos",
+    "page": "Página"
+  },
+  "login": {
+    "title": "Administrador",
+    "userTitle": "Portal del registrador",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "loginButton": "Iniciar sesión",
+    "govLoginButton": "Iniciar con gov.br",
+    "validation": {
+      "required": "Este campo es obligatorio.",
+      "email": "Ingrese un correo electrónico válido.",
+      "hasDigit": "Debe contener al menos un número",
+      "passwordDiff": "Las contraseñas no coinciden.",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordError": "La contraseña debe contener al menos una letra mayúscula, una minúscula, un número y un carácter especial."
+    },
+    "noAccount": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate"
+  },
+  "register": {
+    "title": "Registro de Usuario",
+    "email": "Correo electrónico",
+    "name": "Nombre",
+    "lastName": "Apellido",
+    "idNational": "Id Nacional",
+    "password": "Contraseña",
+    "newPassword": "Nueva Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "submit": "Registrarse",
+    "hasAccount": "¿Ya tienes una cuenta?",
+    "loginLink": "Iniciar sesión"
+  },
+  "profile": {
+    "title": "Perfil",
+    "personalData": "Datos Personales",
+    "accessData": "Credenciales de Acceso",
+    "changePassword": "Cambiar Contraseña",
+    "name": "Nombre",
+    "id": "ID",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "edit": "Editar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "ssoLoginMessage": "Edición de información no disponible. Inicio de sesión realizado a través de SSO GOV.BR."
+  },
+  "messages": {
+    "invalidLogin": "Inicio de sesión inválido.",
+    "loginError": "Error al iniciar sesión.",
+    "profileUpdated": "Información actualizada.",
+    "accessDataUpdated": "Contraseña actualizada con éxito.",
+    "profileUpdateError": "Error al actualizar la información.",
+    "accessDataUpdateError": "Error al actualizar la contraseña.",
+    "registerError": "Error al registrar el usuario.",
+    "invalidEmail": "Correo inválido o ya registrado.",
+    "invalidIdNational": "ID Nacional inválido o ya registrado.",
+    "operationNotAllowed": "Por política de seguridad, esta operación no está permitida.",
+    "sso": {
+      "invalidParams": "Parámetros inválidos de SSO",
+      "errorLogin": "Error al finalizar SSO"
+    }
+  },
+  "homepage": {
+    "title": "Elige la opción según lo que quieras hacer.",
+    "registerProperty": "Registrar propiedad",
+    "properties": "Propiedades",
+    "profile": "Perfil",
+    "learnMore": "Aprende más sobre el proyecto",
+    "avatar": {
+      "title": "Mi cuenta",
+      "profile": "Perfil",
+      "logout": "Cerrar sesión"
+    }
+  }
+}

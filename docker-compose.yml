@@ -1,0 +1,70 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-keycloak
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: senhaSegura
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  keycloak:
+    build: . # usa o Dockerfile na raiz do projeto (keycloak)
+    image: keycloak-car-dpg:custom
+    container_name: keycloak
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: senhaSegura
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_SPI_THEME_CACHE_THEMES: "false"
+      KC_SPI_THEME_CACHE_TEMPLATES: "false"
+      KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-export.json # <- Aqui está o IMPORT
+      KC_HTTP_PORT: 8080
+      KC_HOSTNAME: inovacao.dataprev.gov.br
+      KEYCLOAK_FRONTEND_URL: https://inovacao.dataprev.gov.br/rechml/keycloak
+      KC_HOSTNAME_URL: https://inovacao.dataprev.gov.br/rechml/keycloak
+      KC_HOSTNAME_PATH: /rechml/keycloak
+      KC_HOSTNAME_PORT: "443"
+      KC_HOSTNAME_STRICT: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "true"
+      KEYCLOAK_PROFILE: preview
+      KC_FEATURES: "scripts"
+      KC_CORS: "true"
+      QUARKUS_HTTP_CORS_ENABLED: "true"
+      QUARKUS_HTTP_CORS_METHODS: "GET,PUT,POST,DELETE,OPTIONS"
+    volumes:
+      - ./keycloak-import:/opt/keycloak/data/import # <- Monta a pasta local com o export
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    command: start --import-realm --optimized
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./cardpg
+    container_name: backend-java
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
