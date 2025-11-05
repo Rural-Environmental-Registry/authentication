@@ -34,6 +34,8 @@
     "password": "Password",
     "loginButton": "Login",
     "govLoginButton": "Login with gov.br",
+    "demoBannerTitle": "Notice.",
+  "demoBanner": "This system may collect and temporarily store personally identifiable information (PII) necessary for its operation. This information is processed in accordance with current legislation and used exclusively for the purposes of the system, being stored securely and in a controlled manner.",
     "validation": {
       "required": "This field is required.",
       "email": "Enter a valid email.",

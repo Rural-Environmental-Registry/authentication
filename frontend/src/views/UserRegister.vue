@@ -15,6 +15,8 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const { trigger } = useToast()
+
+const showBanner = ref(true)
 const showPassword = ref(false)
 
 const loading = ref(false)
@@ -120,10 +122,29 @@ const redirect = () => {
   <div class="min-h-screen flex flex-col">
 
     <PageHeader class="z-10" />
+        <!-- Banner de warning -->
+    <div
+      v-if="showBanner"
+      class="br-message warning mb-4"
+      style="padding-top: 0.15rem; padding-bottom: 0.15rem"
+    >
+      <div class="icon">
+  <i class="fas fa-exclamation-triangle fa-lg" aria-hidden="true" style="margin-bottom: 10px;"></i>
+      </div>
+      <div class="content" role="alert">
+        <span class="message-title">{{ t('login.demoBannerTitle') }}</span>
+        <span class="message-body">{{ t('login.demoBanner') }}</span>
+      </div>
+      <div class="close">
+        <button class="br-button circle small" type="button" @click="showBanner = false">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
     <div class="flex flex-1">
       <!-- Lado esquerdo com imagem -->
       <div class="w-1/2 flex items-center justify-center bg-[#f8faf9]">
-        <img src="@/assets/character.svg" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
+  <img src="@/assets/Logo-RER.png" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
           draggable="false" />
       </div>
 

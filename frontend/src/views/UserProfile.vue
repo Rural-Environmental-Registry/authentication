@@ -236,9 +236,7 @@ const goBack = () => {
           <p>{{ personal.lastName }}</p>
         </div>
 
-        <v-text-field v-if="editMode" v-model="idNational" :error="!!idNationalError" :error-messages="$t(idNationalError || '')"
-          :label="$t('register.idNational')" variant="outlined" density="compact" data-testid="idNational" />
-        <div v-else>
+        <div>
           <label class="block text-sm text-gray-500">{{ $t('register.idNational') }}</label>
           <p>{{ personal.idNational }}</p>
         </div>

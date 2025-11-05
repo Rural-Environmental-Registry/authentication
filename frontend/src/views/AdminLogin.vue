@@ -51,7 +51,7 @@ const onSubmit = handleSubmit(async (values) => {
     <div class="flex flex-1">
       <!-- Lado esquerdo com imagem -->
       <div class="w-1/2 flex items-center justify-center bg-[#f8faf9]">
-        <img src="@/assets/character.svg" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
+  <img src="@/assets/Logo-RER.png" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
           draggable="false" />
       </div>
 

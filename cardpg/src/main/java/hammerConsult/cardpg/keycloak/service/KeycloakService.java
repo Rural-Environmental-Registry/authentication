@@ -43,6 +43,9 @@ public class KeycloakService {
     @Value("${keycloak.client-secret}")
     private String clientSecret;
 
+    @Value("${keycloak.redirect-uri}")
+    private String redirectUri;
+
     @Value("${backend.base-url}")
     private String baseUrl;
 
@@ -63,7 +66,7 @@ public class KeycloakService {
         body.add("code", code);
         body.add("client_id", clientId);
         body.add("client_secret", clientSecret);
-        body.add("redirect_uri", "https://inovacao.dataprev.gov.br/rechml");
+        body.add("redirect_uri", redirectUri);
 
         try {
             ResponseEntity<Map<String, Object>> resp = restTemplate.exchange(

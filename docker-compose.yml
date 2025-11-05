@@ -1,25 +1,24 @@
-version: '3.3'
-
 services:
-  postgres:
+  authentication-db:
     image: postgres:15
-    container_name: postgres-keycloak
+    container_name: authentication-db
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: senhaSegura
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    networks:
+    - authentication_network
 
-  keycloak:
+  authentication:
+    image: rer-authentication:latest
     build: . # usa o Dockerfile na raiz do projeto (keycloak)
-    image: keycloak-car-dpg:custom
-    container_name: keycloak
+    container_name: authentication
     environment:
       KC_DB: postgres
-      KC_DB_URL_HOST: postgres
+      KC_DB_URL: jdbc:postgresql://authentication-db:5432/keycloak
+      KC_DB_URL_HOST: authentication-db
       KC_DB_URL_PORT: 5432
       KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: keycloak
@@ -30,10 +29,10 @@ services:
       KC_SPI_THEME_CACHE_TEMPLATES: "false"
       KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm-export.json # <- Aqui está o IMPORT
       KC_HTTP_PORT: 8080
-      KC_HOSTNAME: inovacao.dataprev.gov.br
-      KEYCLOAK_FRONTEND_URL: https://inovacao.dataprev.gov.br/rechml/keycloak
-      KC_HOSTNAME_URL: https://inovacao.dataprev.gov.br/rechml/keycloak
-      KC_HOSTNAME_PATH: /rechml/keycloak
+      KC_HOSTNAME: localhost
+      KEYCLOAK_FRONTEND_URL: http://localhost/rectest/keycloak
+      KC_HOSTNAME_URL: http://localhost/rectest/keycloak
+      KC_HOSTNAME_PATH: /rectest/keycloak
       KC_HOSTNAME_PORT: "443"
       KC_HOSTNAME_STRICT: "true"
       KC_HOSTNAME_STRICT_HTTPS: "true"
@@ -42,29 +41,43 @@ services:
       KC_CORS: "true"
       QUARKUS_HTTP_CORS_ENABLED: "true"
       QUARKUS_HTTP_CORS_METHODS: "GET,PUT,POST,DELETE,OPTIONS"
-    volumes:
-      - ./keycloak-import:/opt/keycloak/data/import # <- Monta a pasta local com o export
-    ports:
-      - "8080:8080"
+    # volumes:
+    #   - ./keycloak-import:/opt/keycloak/data/import # <- Monta a pasta local com o export
     depends_on:
-      - postgres
+      - authentication-db
     command: start --import-realm --optimized
+    networks:
+      # - frontend_network
+      - gateway_network
+      - authentication_network
 
-  frontend:
+  authentication-frontend:
+    image: rer-authentication-frontend:latest
     build: ./frontend
-    container_name: frontend
-    ports:
-      - "3000:80"
+    container_name: authentication-frontend
     depends_on:
-      - backend
+      - authentication-backend
+    networks:
+    - authentication_network
+    # - frontend_network
+    - gateway_network
 
-  backend:
+  authentication-backend:
+    image: rer-authentication-backend:latest
     build: ./cardpg
-    container_name: backend-java
-    ports:
-      - "8081:8081"
+    container_name: authentication-backend
     depends_on:
-      - postgres
+      - authentication-db
+    networks:
+    - authentication_network
+    # - frontend_network
+    - gateway_network
 
 volumes:
   postgres_data:
+
+networks:
+  authentication_network:
+    driver: bridge
+  # frontend_network:
+  #   driver: bridge

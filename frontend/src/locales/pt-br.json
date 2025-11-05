@@ -34,6 +34,8 @@
     "password": "Senha",
     "loginButton": "Entrar",
     "govLoginButton": "Entrar com gov.br",
+    "demoBannerTitle": "Aviso.",
+  "demoBanner": " Este sistema pode coletar e armazenar temporariamente informações pessoais identificáveis (PII) necessárias para o seu funcionamento. Essas informações são tratadas conforme a legislação vigente e utilizadas exclusivamente para as finalidades do sistema, sendo armazenadas de forma segura e controlada.",
     "validation": {
       "required": "Este campo é obrigatório.",
       "email": "Digite um e-mail válido.",

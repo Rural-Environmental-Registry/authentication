@@ -6,13 +6,20 @@ server:
   port: 8081
   address: 0.0.0.0
   servlet:
-    contextPath: /rechml/backend-keycloak
+    contextPath: /rectest/backend-keycloak
 
 keycloak:
-  url: http://keycloak:8080/rechml/keycloak
+  url: http://authentication:8080/rectest/keycloak
   realm: car-dpg
   client-id: api-service
   client-secret: YvM5Ymcx5zjcaWAhK4ER2eJw7nI7H50P
+  redirect-uri: http://localhost:5173/rectest
 
 backend:
-  base-url: https://inovacao.dataprev.gov.br/cardpgbackend
+  base-url: http://core-backend:8080/rectest/cardpgbackend
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

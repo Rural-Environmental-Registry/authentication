@@ -1,30 +1,63 @@
-# Stage 1: Build the Spring Boot application using Maven
-FROM maven:3.9.8-eclipse-temurin-21 AS build
+# ============================
+# 1) Dependencies Stage
+# ============================
+FROM maven:3.9.8-eclipse-temurin-21-alpine AS dependencies
 
-ENV http_proxy=$HTTP_PROXY \
-  https_proxy=$HTTPS_PROXY \
-  no_proxy=$NO_PROXY
+ENV http_proxy= \
+    https_proxy= \
+    no_proxy=
+
+# Atualizar pacotes para corrigir CVEs
+RUN apk update && apk upgrade --no-cache
 
 WORKDIR /app
 
-# Copy the Maven project files (pom.xml and source code)
-COPY pom.xml .
+# Copiar apenas arquivos de configuração Maven primeiro
+COPY pom.xml ./
+COPY settings.xml /root/.m2/settings.xml
+
+# Download dependencies com cache - esta camada será reutilizada
+RUN --mount=type=cache,target=/root/.m2/repository \
+    mvn dependency:go-offline -B --no-transfer-progress
+
+# ============================
+# 2) Build Stage
+# ============================
+FROM dependencies AS build
+
+# Copiar código fonte
 COPY src ./src
 
-# Build the Spring Boot application
-RUN mvn clean package -DskipTests
+# Build com cache otimizado
+RUN --mount=type=cache,target=/root/.m2/repository \
+    mvn clean package -DskipTests --no-transfer-progress -q
 
-# Stage 2: Create the final Docker image
-FROM eclipse-temurin:21-jre-jammy AS final
+# ============================
+# 3) Runtime Stage
+# ============================
+FROM eclipse-temurin:21-jre-alpine AS runtime
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the built JAR file from the build stage
+# Instalar dependências necessárias
+RUN apk add --no-cache \
+    fontconfig \
+    ttf-dejavu
+
+# Criar usuário não-root
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup
+
+# Copiar JAR
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose the port your Spring Boot application listens on
-EXPOSE 8081
+# Configurar permissões
+RUN chown appuser:appgroup app.jar
 
-# Define the entry point to run the Spring Boot application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Configurações JVM otimizadas
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC"
+
+EXPOSE 8081
+USER appuser
+
+ENTRYPOINT ["sh", "-c", "java  -jar app.jar"]

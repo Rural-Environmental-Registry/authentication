@@ -28,6 +28,8 @@
     "page": "Página"
   },
   "login": {
+    "demoBannerTitle": "Aviso.",
+    "demoBanner": "Este sistema puede recopilar y almacenar temporalmente información personal identificable (PII) necesaria para su funcionamiento. Esta información se trata de acuerdo con la legislación vigente y se utiliza exclusivamente para los fines del sistema, almacenándose de forma segura y controlada.",
     "title": "Administrador",
     "userTitle": "Portal del registrador",
     "email": "Correo electrónico",

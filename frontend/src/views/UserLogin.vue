@@ -13,9 +13,12 @@ import { redirectToPortal } from '@/helpers/redirect';
 const { t } = useI18n()
 const router = useRouter()
 const { trigger } = useToast()
+
 const showPassword = ref(false)
 
 const loading = ref(false)
+
+const redirectUri = import.meta.env.VITE_FRONTEND_USR_URL as string
 
 const schema = yup.object({
   email: yup.string().required('login.validation.required').email('login.validation.email'),
@@ -70,7 +73,7 @@ const govLogin = () => {
   url.searchParams.set("client_id", "api-service");
   url.searchParams.set("response_type", "code");
   url.searchParams.set("scope", "openid");
-  url.searchParams.set("redirect_uri", "https://inovacao.dataprev.gov.br/rechml");
+  url.searchParams.set("redirect_uri", redirectUri);
   url.searchParams.set("kc_idp_hint", "gov-br");
   window.location.href = url.toString()
 }
@@ -82,7 +85,7 @@ const govLogin = () => {
     <div class="flex w-full h-full flex-1">
       <!-- Lado esquerdo com imagem -->
       <div class="w-1/2 flex items-center justify-center bg-[#f8faf9]">
-        <img src="@/assets/character.svg" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
+  <img src="@/assets/Logo-RER.png" alt="Login Illustration" class="w-full max-w-sm md:max-w-lg"
           draggable="false" />
       </div>
 

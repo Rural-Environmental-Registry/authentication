@@ -1,8 +1,8 @@
-# RER-DPG - Authentication Frontend
+# RER - Authentication Frontend
 
 ## Sobre o Módulo
 
-O **Authentication Frontend** é a interface administrativa do módulo de autenticação do RER-DPG, desenvolvida em Vue.js 3 com Vite. Fornece uma interface moderna e intuitiva para gerenciamento de usuários, visualização de configurações do sistema e administração do Keycloak.
+O **Authentication Frontend** é a interface administrativa do módulo de autenticação do RER, desenvolvida em Vue.js 3 com Vite. Fornece uma interface moderna e intuitiva para gerenciamento de usuários, visualização de configurações do sistema e administração do Keycloak.
 
 **Principais características:**
 
@@ -97,7 +97,7 @@ Executa linting com [ESLint](https://eslint.org/).
 
 A principal funcionalidade é a **página de visualização de configurações do sistema** (`AdminSettings.vue`), que:
 
-- Coleta configurações de todos os submódulos do RER-DPG
+- Coleta configurações de todos os submódulos do RER
 - Exibe informações em tabela pesquisável e organizável
 - Identifica origem de cada configuração (arquivo, componente)
 - Permite navegação e filtragem avançada
@@ -168,18 +168,18 @@ Consulte [Vite Configuration Reference](https://vite.dev/config/) para customiza
 
 ## Integração com Sistema Principal
 
-Este frontend integra-se com o sistema RER-DPG através de:
+Este frontend integra-se com o sistema RER através de:
 
 1. **Parser de Configurações** (`helpers/table.ts`): Interpreta dados de configuração dos diferentes submódulos
-2. **APIs do Core-Backend**: Consome endpoint `/v1/admin/app-info` para configurações do servidor
-3. **APIs do Core-Frontend**: Acessa `config.json` gerado pelo script `generate-config.sh`
+2. **APIs do backend**: Consome endpoint `/v1/admin/app-info` para configurações do servidor
+3. **APIs do frontend**: Acessa `config.json` gerado pelo script `generate-config.sh`
 4. **Keycloak Integration**: Comunicação direta com APIs do Keycloak
 
 ---
 
 ## Acesso à Aplicação
 
-Quando executado como parte do sistema RER-DPG:
+Quando executado como parte do sistema RER:
 
 - **URL:** http://localhost/<BASE_URL>/<AUTHENTICATION_FRONTEND_CONTEXT_PATH>
 - **Credenciais padrão:**
