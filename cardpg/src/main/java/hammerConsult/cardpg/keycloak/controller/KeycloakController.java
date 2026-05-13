@@ -22,12 +22,7 @@ public class KeycloakController {
         this.keycloakService = keycloakService;
     }
 
-    // GET /api/keycloak/token
-    @GetMapping("/token")
-    public ResponseEntity<String> getAdminToken() {
-        String token = keycloakService.getAdminToken();
-        return ResponseEntity.ok(token);
-    }
+
     @PostMapping("/auth/callback")
     public ResponseEntity<Map<String, Object>> handleGovRedirect(@RequestParam("code") String code){
         return keycloakService.handleGovRedirect(code);
