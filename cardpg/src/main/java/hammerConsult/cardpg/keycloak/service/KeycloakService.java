@@ -203,8 +203,11 @@ public class KeycloakService {
     }
 
     public List<KeycloakUserDTO> buscarUsuarioPorEmail(String email) {
-        String encodedEmail = java.net.URLEncoder.encode(email, java.nio.charset.StandardCharsets.UTF_8);
-        String url = keycloakUrl + "/admin/realms/" + realm + "/users?email=" + encodedEmail + "&exact=true";
+        String url = org.springframework.web.util.UriComponentsBuilder
+                .fromHttpUrl(keycloakUrl + "/admin/realms/" + realm + "/users")
+                .queryParam("email", email)
+                .queryParam("exact", "true")
+                .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(getAdminToken());
@@ -483,8 +486,7 @@ public class KeycloakService {
         if (users == null || users.isEmpty()) {
             users = buscarUsuarioPorEmail(username);
         }
-        String userId = (users != null ? users : java.util.Collections.<KeycloakUserDTO>emptyList())
-                .stream()
+        String userId = users.stream()
                 .findFirst()
                 .map(KeycloakUserDTO::getId)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado: " + username));
