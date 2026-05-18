@@ -218,7 +218,7 @@ public class KeycloakService {
                     });
             return response.getBody() != null ? response.getBody() : java.util.Collections.emptyList();
         } catch (HttpClientErrorException e) {
-            throw new UserNotFoundException("Erro ao buscar usuario por email");
+            throw new UserNotFoundException("Erro ao buscar usuario por email", e);
         }
     }
 
@@ -478,7 +478,11 @@ public class KeycloakService {
     }
 
     public ResponseEntity<Boolean> temSenha(String username) {
-        List<KeycloakUserDTO> users = username.contains("@") ? buscarUsuarioPorEmail(username) : buscarUsuarioPorUsername(username);
+        // Try username first, then email as fallback (handles @ in usernames)
+        List<KeycloakUserDTO> users = buscarUsuarioPorUsername(username);
+        if (users == null || users.isEmpty()) {
+            users = buscarUsuarioPorEmail(username);
+        }
         String userId = (users != null ? users : java.util.Collections.<KeycloakUserDTO>emptyList())
                 .stream()
                 .findFirst()
