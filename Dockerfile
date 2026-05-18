@@ -28,7 +28,7 @@ ENV KC_FEATURES=preview
 # ============================
 # Context path da aplicação
 # ============================
-ENV KC_HTTP_RELATIVE_PATH=/rectest/keycloak
+ENV KC_HTTP_RELATIVE_PATH=/keycloak
 
 # ============================
 # Configurações de proxy

@@ -25,6 +25,8 @@ FROM dependencies AS build
 COPY . .
 ENV CI=true
 ENV NODE_ENV=production
+ARG VITE_BASE_URL=/auth/
+ENV VITE_BASE_URL=${VITE_BASE_URL}
 RUN pnpm run build
 
 # ============================
@@ -33,7 +35,8 @@ RUN pnpm run build
 FROM nginx:alpine AS final
 
 # Copiar arquivos buildados
-COPY --from=build /app/dist /usr/share/nginx/html/rectest/auth
+ARG BASE_PATH=/auth
+COPY --from=build /app/dist /usr/share/nginx/html${BASE_PATH}
 
 # Configurar nginx
 RUN rm /etc/nginx/conf.d/default.conf

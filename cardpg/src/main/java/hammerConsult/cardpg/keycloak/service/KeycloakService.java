@@ -202,6 +202,25 @@ public class KeycloakService {
         }
     }
 
+    public List<KeycloakUserDTO> buscarUsuarioPorEmail(String email) {
+        String url = keycloakUrl + "/admin/realms/" + realm + "/users?email=" + email + "&exact=true";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(getAdminToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        try {
+            ResponseEntity<List<KeycloakUserDTO>> response = restTemplate.exchange(url, HttpMethod.GET,
+                    entity, new ParameterizedTypeReference<>() {
+                    });
+            return response.getBody();
+        } catch (HttpClientErrorException e) {
+            throw new UserNotFoundException("Erro ao buscar usuario por email");
+        }
+    }
+
     public List<KeycloakUserDTO> buscarUsuarioPorIdNational(String idNational) {
         String url = keycloakUrl + "/admin/realms/" + realm + "/users?q=idNational:" + idNational;
 
@@ -458,7 +477,7 @@ public class KeycloakService {
     }
 
     public ResponseEntity<Boolean> temSenha(String username) {
-        String userId = buscarUsuarioPorUsername(username)
+        String userId = (username.contains("@") ? buscarUsuarioPorEmail(username) : buscarUsuarioPorUsername(username))
                 .stream()
                 .findFirst()
                 .map(KeycloakUserDTO::getId)
