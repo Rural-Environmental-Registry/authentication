@@ -184,7 +184,7 @@ public class KeycloakService {
 
 
     public List<KeycloakUserDTO> buscarUsuarioPorUsername(String usernameBody) {
-        String createUserUrl = keycloakUrl + "/admin/realms/" + realm + "/users?username=" + usernameBody;
+        String createUserUrl = keycloakUrl + "/admin/realms/" + realm + "/users?username=" + usernameBody + "&exact=true";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(getAdminToken());
@@ -220,8 +220,10 @@ public class KeycloakService {
                     entity, new ParameterizedTypeReference<>() {
                     });
             return response.getBody() != null ? response.getBody() : java.util.Collections.emptyList();
+        } catch (HttpClientErrorException.NotFound e) {
+            return java.util.Collections.emptyList();
         } catch (HttpClientErrorException e) {
-            throw new UserNotFoundException("Erro ao buscar usuario por email", e);
+            throw new UserNotFoundException("Erro ao buscar usuario por email: " + e.getStatusCode(), e);
         }
     }
 
