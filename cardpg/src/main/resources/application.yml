@@ -6,10 +6,10 @@ server:
   port: 8081
   address: 0.0.0.0
   servlet:
-    contextPath: /rectest/backend-keycloak
+    contextPath: ${SERVER_CONTEXT_PATH:/}
 
 keycloak:
-  url: http://authentication:8080/rectest/keycloak
+  url: ${KEYCLOAK_URL:http://authentication:8080/keycloak}
   realm: car-dpg
   client-id: api-service
   client-secret: YvM5Ymcx5zjcaWAhK4ER2eJw7nI7H50P
