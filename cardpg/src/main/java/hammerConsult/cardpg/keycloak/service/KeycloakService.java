@@ -184,7 +184,7 @@ public class KeycloakService {
 
 
     public List<KeycloakUserDTO> buscarUsuarioPorUsername(String usernameBody) {
-        String createUserUrl = keycloakUrl + "/admin/realms/" + realm + "/users?username=" + usernameBody;
+        String createUserUrl = keycloakUrl + "/admin/realms/" + realm + "/users?username=" + usernameBody + "&exact=true";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(getAdminToken());
@@ -199,6 +199,31 @@ public class KeycloakService {
             return response.getBody();
         } catch (HttpClientErrorException e) {
             throw new UserNotFoundException("Erro Inesperado ao buscar usuario");
+        }
+    }
+
+    public List<KeycloakUserDTO> buscarUsuarioPorEmail(String email) {
+        String url = org.springframework.web.util.UriComponentsBuilder
+                .fromHttpUrl(keycloakUrl + "/admin/realms/" + realm + "/users")
+                .queryParam("email", email)
+                .queryParam("exact", "true")
+                .toUriString();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(getAdminToken());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        try {
+            ResponseEntity<List<KeycloakUserDTO>> response = restTemplate.exchange(url, HttpMethod.GET,
+                    entity, new ParameterizedTypeReference<>() {
+                    });
+            return response.getBody() != null ? response.getBody() : java.util.Collections.emptyList();
+        } catch (HttpClientErrorException.NotFound e) {
+            return java.util.Collections.emptyList();
+        } catch (HttpClientErrorException e) {
+            throw new UserNotFoundException("Erro ao buscar usuario por email: " + e.getStatusCode(), e);
         }
     }
 
@@ -458,8 +483,12 @@ public class KeycloakService {
     }
 
     public ResponseEntity<Boolean> temSenha(String username) {
-        String userId = buscarUsuarioPorUsername(username)
-                .stream()
+        // Try username first, then email as fallback (handles @ in usernames)
+        List<KeycloakUserDTO> users = buscarUsuarioPorUsername(username);
+        if (users == null || users.isEmpty()) {
+            users = buscarUsuarioPorEmail(username);
+        }
+        String userId = users.stream()
                 .findFirst()
                 .map(KeycloakUserDTO::getId)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado: " + username));
