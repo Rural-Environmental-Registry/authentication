@@ -24,7 +24,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@govbr-ds/core": "^3.6.1",
     "@mdi/font": "^7.4.47",
-    "@tanstack/virtual-core": "3.13.0",
+    "@tanstack/virtual-core": "3.17.3",
     "@tanstack/vue-table": "8.21.3",
     "@tanstack/vue-virtual": "3.13.0",
     "@vueuse/core": "^13.3.0",
