@@ -184,7 +184,11 @@ public class KeycloakService {
 
 
     public List<KeycloakUserDTO> buscarUsuarioPorUsername(String usernameBody) {
-        String createUserUrl = keycloakUrl + "/admin/realms/" + realm + "/users?username=" + usernameBody + "&exact=true";
+        String searchUrl = org.springframework.web.util.UriComponentsBuilder
+                .fromHttpUrl(keycloakUrl + "/admin/realms/" + realm + "/users")
+                .queryParam("username", usernameBody)
+                .queryParam("exact", "true")
+                .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(getAdminToken());
@@ -193,12 +197,12 @@ public class KeycloakService {
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
         try {
-            ResponseEntity<List<KeycloakUserDTO>> response = restTemplate.exchange(createUserUrl, HttpMethod.GET,
+            ResponseEntity<List<KeycloakUserDTO>> response = restTemplate.exchange(searchUrl, HttpMethod.GET,
                     entity, new ParameterizedTypeReference<>() {
                     });
-            return response.getBody();
+            return response.getBody() != null ? response.getBody() : java.util.Collections.emptyList();
         } catch (HttpClientErrorException e) {
-            throw new UserNotFoundException("Erro Inesperado ao buscar usuario");
+            throw new UserNotFoundException("Erro Inesperado ao buscar usuario", e);
         }
     }
 
