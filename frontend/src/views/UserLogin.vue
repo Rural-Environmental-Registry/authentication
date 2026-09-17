@@ -69,11 +69,11 @@ const redirect = () => {
 }
 
 const govLogin = () => {
-  const url = new URL( `${import.meta.env.VITE_KEYCLOAK_API_URL}/realms/car-dpg/protocol/openid-connect/auth`);
+  const url = new URL(`${import.meta.env.VITE_KEYCLOAK_API_URL}/realms/car-dpg/protocol/openid-connect/auth`, window.location.origin);
   url.searchParams.set("client_id", "api-service");
   url.searchParams.set("response_type", "code");
   url.searchParams.set("scope", "openid");
-  url.searchParams.set("redirect_uri", redirectUri);
+  url.searchParams.set("redirect_uri", new URL(redirectUri, window.location.origin).toString());
   url.searchParams.set("kc_idp_hint", "gov-br");
   window.location.href = url.toString()
 }
