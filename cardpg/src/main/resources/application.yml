@@ -16,7 +16,7 @@ keycloak:
   redirect-uri: http://localhost:5173/rectest
 
 backend:
-  base-url: http://core-backend:8080/rectest/cardpgbackend
+  base-url: ${BACKEND_BASE_URL:http://core-backend:8080/cardpgbackend}
 
 management:
   endpoints:
